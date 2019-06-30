@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "await-promise": true,
+    "member-ordering": [
+      true,
+      {
+        "order": "statics-first",
+        "alphabetize": true
+      }
+    ],
+    "newline-before-return": true,
+    "no-any": true,
+    "no-empty-interface": true,
+    "no-implicit-dependencies": [true, "dev"],
+    "prettier": true,
+    "promise-function-async": true,
+    "ordered-imports": [
+      true,
+      {
+        "grouped-imports": true,
+        "import-sources-order": "case-insensitive",
+        "module-source-path": "full",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["public/index.html", ".cache", "build", "node_modules"]
+  }
+}
