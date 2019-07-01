@@ -80,7 +80,7 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
   };
 
   render() {
-    const { musicId, playing } = this.state;
+    const { duration, musicId, playing, position } = this.state;
 
     return (
       <>
@@ -97,6 +97,9 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
             </Button>
             <Title>{playlist[musicId].title}</Title>
           </Header>
+          <Content>
+            <ProgressBar progress={(position / duration) * 100} />
+          </Content>
         </Wrapper>
       </>
     );
@@ -110,8 +113,29 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-basis: auto;
   background-color: ${colors.whitesmoke};
+`;
+
+const Content = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 300px;
+  box-sizing: border-box;
+`;
+
+interface IProgressBar {
+  progress: number;
+}
+
+const ProgressBar = styled.div<IProgressBar>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: ${({ progress }: IProgressBar): string => `${progress}%`};
+  background-color: ${colors.darkslateblue};
 `;
 
 const Header = styled.div`
