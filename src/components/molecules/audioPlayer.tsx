@@ -72,8 +72,14 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
     position: 0,
   };
 
-  public onPause = (e: any): void => {
-    console.log(e);
+  public onFinishedPlaying = (): void => {
+    const { musicId } = this.state;
+
+    if (musicId < playlist.length - 1) {
+      this.setState({ musicId: musicId + 1 });
+    } else {
+      this.setState({ playing: false });
+    }
   };
 
   public onPlaying = ({ duration, position }: PlayerData): void => {
@@ -88,7 +94,7 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
         <Sound
           url={playlist[musicId].url}
           playStatus={playing ? PlayerState.PLAYING : PlayerState.PAUSED}
-          onPause={this.onPause}
+          onFinishedPlaying={this.onFinishedPlaying}
           onPlaying={this.onPlaying}
         />
         <Wrapper>
