@@ -28,6 +28,7 @@ const HeroSection = () => (
       <Wrapper>
         <BackgroundImageStyled
           fluid={data.file.childImageSharp.fluid}
+          overlayColor={colors.darkslateblue}
           title="Privilège"
         />
         <Content>
