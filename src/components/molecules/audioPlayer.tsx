@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import React, { PureComponent } from "react";
 import Sound from "react-sound";
 import styled, { css } from "styled-components";
@@ -10,8 +11,8 @@ import couleursMp3 from "../../assets/music/Couleurs.mp3";
 import coinDuVoileMp3 from "../../assets/music/Le Coin Du Voile.mp3";
 import joiesIvresseMp3 from "../../assets/music/Les Joies De L'Ivresse.mp3";
 import silenceTourneMp3 from "../../assets/music/Silence On Tourne.mp3";
-import { colors, fontSizes } from "../../theme";
-import { onlyMobile, tablet } from "../../utils/deviceStyle";
+import { colors } from "../../theme";
+import { tablet } from "../../utils/deviceStyle";
 
 enum PlayerState {
   PLAYING = "PLAYING",
@@ -65,7 +66,7 @@ interface IState {
 
 export default class AudioPlayer extends PureComponent<{}, IState> {
   public state: IState = {
-    duration: 0,
+    duration: 1,
     musicId: 0,
     playing: false,
     position: 0,
@@ -99,11 +100,25 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
           </Header>
           <Content>
             <ProgressBar progress={(position / duration) * 100} />
+            {playlist.map((music: IMusic, i: number) => (
+              <Music onClick={() => this.selectMusic(i)}>
+                <MusicTitle
+                  className={classnames({ selected: i === musicId })}
+                  color={colors.darkslategray}
+                >
+                  {i + 1}. {music.title}
+                </MusicTitle>
+              </Music>
+            ))}
           </Content>
         </Wrapper>
       </>
     );
   }
+
+  public selectMusic = (musicId: number): void => {
+    this.setState({ musicId, playing: true });
+  };
 
   public togglePlay = (): void => {
     this.setState(({ playing }: IState) => ({ playing: !playing }));
@@ -114,7 +129,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: auto;
-  background-color: ${colors.whitesmoke};
 `;
 
 const Content = styled.div`
@@ -122,7 +136,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 300px;
-  box-sizing: border-box;
+  background-color: ${colors.whitesmoke};
 `;
 
 interface IProgressBar {
@@ -130,12 +144,22 @@ interface IProgressBar {
 }
 
 const ProgressBar = styled.div<IProgressBar>`
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 6px;
   width: ${({ progress }: IProgressBar): string => `${progress}%`};
   background-color: ${colors.darkslateblue};
+`;
+
+const Music = styled.div`
+  display: flex;
+  align-items: center;
+  flex-basis: 50px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    border-bottom: 2px solid ${colors.silver};
+  }
 `;
 
 const Header = styled.div`
@@ -149,16 +173,26 @@ const Header = styled.div`
 
 const Title = styled.p`
   color: ${colors.white};
-  letter-spacing: 0.5em;
+  letter-spacing: 0.1em;
   margin-left: 20px;
-
-  ${onlyMobile(css`
-    font-size: ${fontSizes.mobile.text};
-  `)}
+  font-size: 1.2em;
 
   ${tablet(css`
-    font-size: ${fontSizes.desktop.text};
+    font-size: 2em;
   `)}
+`;
+
+const MusicTitle = styled(Title)`
+  color: ${colors.darkslategray};
+  font-size: 1em;
+
+  ${tablet(css`
+    font-size: 1.2em;
+  `)}
+
+  &.selected {
+    color: ${colors.primary};
+  }
 `;
 
 const Button = styled.button`
