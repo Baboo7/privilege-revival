@@ -51,6 +51,7 @@ const Title = styled.h1`
   left: 50%;
   transform: translate(-50%, -50%);
   color: ${colors.white};
+  font-family: Arial;
   letter-spacing: 0.5em;
   text-shadow: 5px 5px 5px ${colors.black};
 
