@@ -60,7 +60,6 @@ const Content = styled.div`
   flex-grow: 1;
   box-sizing: border-box;
   padding: 10px 30px;
-  padding-top: 80px;
   color: ${colors.white};
 
   ${onlyMobile(css`
