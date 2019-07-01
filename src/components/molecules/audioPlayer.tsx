@@ -12,7 +12,7 @@ import coinDuVoileMp3 from "../../assets/music/Le Coin Du Voile.mp3";
 import joiesIvresseMp3 from "../../assets/music/Les Joies De L'Ivresse.mp3";
 import silenceTourneMp3 from "../../assets/music/Silence On Tourne.mp3";
 import { colors } from "../../theme";
-import { onlyMobile, tablet } from "../../utils/deviceStyle";
+import { belowTablet, desktop } from "../../utils/deviceStyle";
 
 enum PlayerState {
   PLAYING = "PLAYING",
@@ -132,7 +132,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   flex-basis: auto;
 
-  ${onlyMobile(css`
+  ${belowTablet(css`
     flex-grow: 1;
   `)}
 `;
@@ -144,7 +144,7 @@ const Content = styled.div`
   flex-grow: 1;
   background-color: ${colors.whitesmoke};
 
-  ${tablet(css`
+  ${desktop(css`
     flex-basis: 300px;
   `)}
 `;
@@ -177,7 +177,7 @@ const Title = styled.p`
   letter-spacing: 0.1em;
   font-size: 1.4em;
 
-  ${tablet(css`
+  ${desktop(css`
     font-size: 1.6em;
   `)}
 `;
@@ -187,7 +187,7 @@ const MusicTitle = styled(Title)`
   color: ${colors.darkslategray};
   font-size: 1em;
 
-  ${tablet(css`
+  ${desktop(css`
     font-size: 1.2em;
   `)}
 
@@ -212,11 +212,11 @@ const Music = styled.div`
     color: ${colors.primary};
   }
 
-  ${onlyMobile(css`
+  ${belowTablet(css`
     flex-grow: 1;
   `)}
 
-  ${tablet(css`
+  ${desktop(css`
     flex-basis: 50px;
   `)}
 `;

@@ -3,7 +3,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import { colors, fontSizes } from "../../theme";
-import { onlyMobile, tablet } from "../../utils/deviceStyle";
+import { belowTablet, desktop } from "../../utils/deviceStyle";
 
 interface IProps {
   className?: string;
@@ -55,11 +55,11 @@ const Title = styled.h1`
   letter-spacing: 0.5em;
   text-shadow: 5px 5px 5px ${colors.black};
 
-  ${onlyMobile(css`
+  ${belowTablet(css`
     font-size: ${fontSizes.mobile.title};
   `)}
 
-  ${tablet(css`
+  ${desktop(css`
     font-size: ${fontSizes.desktop.title};
   `)}
 `;

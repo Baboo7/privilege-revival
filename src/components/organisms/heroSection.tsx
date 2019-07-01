@@ -3,7 +3,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import { colors } from "../../theme";
-import { onlyMobile, tablet } from "../../utils/deviceStyle";
+import { belowTablet, desktop } from "../../utils/deviceStyle";
 import { AudioPlayer, BackgroundImage } from "../molecules";
 import { IFluid } from "../types";
 
@@ -48,7 +48,7 @@ const Wrapper = styled.section`
   min-height: 100vh;
   background-color: ${colors.white};
 
-  ${tablet(css`
+  ${desktop(css`
     flex-direction: row;
   `)}
 `;
@@ -61,11 +61,11 @@ const Content = styled.div`
   box-sizing: border-box;
   color: ${colors.white};
 
-  ${onlyMobile(css`
+  ${belowTablet(css`
     max-height: 55vh;
   `)}
 
-  ${tablet(css`
+  ${desktop(css`
     max-width: 50%;
     padding: 80px 60px 20px 60px;
   `)}
@@ -74,7 +74,7 @@ const Content = styled.div`
 const BackgroundImageStyled = styled(BackgroundImage)`
   flex-grow: 1;
 
-  ${tablet(css`
+  ${desktop(css`
     max-width: 50%;
   `)}
 `;
