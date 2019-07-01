@@ -7,7 +7,6 @@ interface IProps {
   lang?: string;
   meta?: any[];
   keywords?: string[];
-  title: string;
 }
 
 function SEO({
@@ -15,7 +14,6 @@ function SEO({
   keywords = [],
   lang = `en`,
   meta = [],
-  title,
 }: IProps) {
   const { site } = useStaticQuery(
     graphql`
@@ -38,8 +36,8 @@ function SEO({
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={site.siteMetadata.title}
+      titleTemplate={site.siteMetadata.title}
       meta={[
         {
           name: `description`,
@@ -47,7 +45,7 @@ function SEO({
         },
         {
           property: `og:title`,
-          content: title,
+          content: site.siteMetadata.title,
         },
         {
           property: `og:description`,
@@ -67,7 +65,7 @@ function SEO({
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: site.siteMetadata.title,
         },
         {
           name: `twitter:description`,

@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Privilege`,
-    description: `Fresh rock from the 80's.`,
+    description: `La fraîcheur du rock des années 80`,
     author: `@Baboo7`,
   },
   plugins: [

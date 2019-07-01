@@ -6,7 +6,6 @@ import { Footer, HeroSection } from "../components/organisms";
 const IndexPage = () => (
   <>
     <SEO
-      title="Home"
       keywords={[
         `privilege`,
         `musique`,
