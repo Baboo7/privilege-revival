@@ -15,7 +15,7 @@ const HeroSection = () => (
   <StaticQuery
     query={graphql`
       query {
-        file(base: { eq: "background-2.jpeg" }) {
+        file(base: { eq: "privilege.jpg" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 900) {
               ...GatsbyImageSharpFluid_withWebp
@@ -26,10 +26,7 @@ const HeroSection = () => (
     `}
     render={(data: IData) => (
       <Wrapper>
-        <BackgroundImageStyled
-          fluid={data.file.childImageSharp.fluid}
-          overlayColor={colors.white}
-        />
+        <BackgroundImageStyled fluid={data.file.childImageSharp.fluid} />
         <Content>
           <Title>Privilege</Title>
         </Content>

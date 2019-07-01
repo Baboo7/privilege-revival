@@ -5,10 +5,10 @@ import styled from "styled-components";
 interface IProps {
   className?: string;
   fluid?: IFluidObject | [IFluidObject];
-  overlayColor: string;
+  overlayColor?: string;
 }
 
-export default ({ className, fluid, overlayColor }: IProps) => (
+export default ({ className, fluid, overlayColor = "transparent" }: IProps) => (
   <BackgroundImageStyled className={className} fluid={fluid}>
     <Overlay color={overlayColor} />
   </BackgroundImageStyled>
