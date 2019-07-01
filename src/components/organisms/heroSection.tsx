@@ -2,7 +2,7 @@ import { StaticQuery, graphql } from "gatsby";
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { colors, fontSizes } from "../../theme";
+import { colors } from "../../theme";
 import { onlyMobile, tablet } from "../../utils/deviceStyle";
 import { BackgroundImage } from "../molecules";
 import { IFluid } from "../types";
@@ -26,7 +26,10 @@ const HeroSection = () => (
     `}
     render={(data: IData) => (
       <Wrapper>
-        <BackgroundImageStyled fluid={data.file.childImageSharp.fluid} />
+        <BackgroundImageStyled
+          fluid={data.file.childImageSharp.fluid}
+          title="Privilège"
+        />
         <Content>
           <Title>Privilege</Title>
         </Content>
@@ -43,7 +46,7 @@ const Wrapper = styled.section`
   flex-grow: 1;
   height: 100vh;
   min-height: 100vh;
-  background-color: ${colors.black};
+  background-color: ${colors.white};
 
   ${tablet(css`
     flex-direction: row;
