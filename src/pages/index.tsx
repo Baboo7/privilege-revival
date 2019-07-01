@@ -5,9 +5,30 @@ import { Footer, HeroSection } from "../components/organisms";
 
 const IndexPage = () => (
   <>
-    {/* TODO: Optimize SEO */}
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <HeroSection></HeroSection>
+    <SEO
+      title="Home"
+      keywords={[
+        `privilege`,
+        `musique`,
+        `rock`,
+        `années 80`,
+        `baccara`,
+        `le coup du voile`,
+        `couleurs`,
+        `absence`,
+        `silence on tourne`,
+        `les joies de l'ivresse`,
+        `silence`,
+        `tourne`,
+        `joies`,
+        `ivresse`,
+        `renaissance`,
+        `revival`,
+        `music`,
+        `80's`,
+      ]}
+    />
+    <HeroSection />
     <Footer />
   </>
 );
