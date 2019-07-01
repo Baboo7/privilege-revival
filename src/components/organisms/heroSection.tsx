@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 
 import { colors } from "../../theme";
 import { onlyMobile, tablet } from "../../utils/deviceStyle";
-import { BackgroundImage } from "../molecules";
+import { AudioPlayer, BackgroundImage } from "../molecules";
 import { IFluid } from "../types";
 
 interface IData {
@@ -31,7 +31,7 @@ const HeroSection = () => (
           title="Privilège"
         />
         <Content>
-          <Title>Privilege</Title>
+          <AudioPlayer />
         </Content>
       </Wrapper>
     )}
@@ -70,18 +70,6 @@ const Content = styled.div`
   ${tablet(css`
     max-width: 50%;
     padding: 80px 60px 20px 60px;
-  `)}
-`;
-
-const Title = styled.h1`
-  color: ${colors.white};
-
-  ${onlyMobile(css`
-    font-size: ${fontSizes.mobile.title};
-  `)}
-
-  ${tablet(css`
-    font-size: ${fontSizes.desktop.title};
   `)}
 `;
 
