@@ -59,7 +59,6 @@ const Content = styled.div`
   justify-content: space-around;
   flex-grow: 1;
   box-sizing: border-box;
-  padding: 10px 30px;
   color: ${colors.white};
 
   ${onlyMobile(css`

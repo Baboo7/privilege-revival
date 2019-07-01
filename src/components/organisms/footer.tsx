@@ -1,8 +1,7 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-import { colors, fontSizes } from "../../theme";
-import { tablet } from "../../utils/deviceStyle";
+import { colors } from "../../theme";
 
 const Footer = () => (
   <Wrapper>
@@ -22,13 +21,7 @@ const Wrapper = styled.footer`
 
 const Copyright = styled.p`
   color: ${colors.white};
-  font-size: ${fontSizes.mobile.text};
-
-  ${tablet(
-    css`
-      font-size: ${fontSizes.desktop.text};
-    `
-  )}
+  font-size: 1em;
 `;
 
 export default Footer;

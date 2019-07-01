@@ -12,7 +12,7 @@ import coinDuVoileMp3 from "../../assets/music/Le Coin Du Voile.mp3";
 import joiesIvresseMp3 from "../../assets/music/Les Joies De L'Ivresse.mp3";
 import silenceTourneMp3 from "../../assets/music/Silence On Tourne.mp3";
 import { colors } from "../../theme";
-import { tablet } from "../../utils/deviceStyle";
+import { onlyMobile, tablet } from "../../utils/deviceStyle";
 
 enum PlayerState {
   PLAYING = "PLAYING",
@@ -101,7 +101,7 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
           <Content>
             <ProgressBar progress={(position / duration) * 100} />
             {playlist.map((music: IMusic, i: number) => (
-              <Music onClick={() => this.selectMusic(i)}>
+              <Music key={music.title} onClick={() => this.selectMusic(i)}>
                 <MusicTitle
                   className={classnames({ selected: i === musicId })}
                   color={colors.darkslategray}
@@ -117,7 +117,9 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
   }
 
   public selectMusic = (musicId: number): void => {
-    this.setState({ musicId, playing: true });
+    if (musicId !== this.state.musicId) {
+      this.setState({ musicId, playing: true });
+    }
   };
 
   public togglePlay = (): void => {
@@ -129,14 +131,22 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: auto;
+
+  ${onlyMobile(css`
+    flex-grow: 1;
+  `)}
 `;
 
 const Content = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  flex-basis: 300px;
+  flex-grow: 1;
   background-color: ${colors.whitesmoke};
+
+  ${tablet(css`
+    flex-basis: 300px;
+  `)}
 `;
 
 interface IProgressBar {
@@ -145,21 +155,9 @@ interface IProgressBar {
 
 const ProgressBar = styled.div<IProgressBar>`
   height: 6px;
+  min-height: 6px;
   width: ${({ progress }: IProgressBar): string => `${progress}%`};
-  background-color: ${colors.darkslateblue};
-`;
-
-const Music = styled.div`
-  display: flex;
-  align-items: center;
-  flex-basis: 50px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  cursor: pointer;
-
-  &:not(:last-of-type) {
-    border-bottom: 2px solid ${colors.silver};
-  }
+  background-color: ${colors.primaryDark};
 `;
 
 const Header = styled.div`
@@ -167,22 +165,25 @@ const Header = styled.div`
   align-items: center;
   flex-basis: 80px;
   box-sizing: border-box;
-  padding: 0 10px;
+  padding-left: 20px;
   background-color: ${colors.silver};
 `;
 
 const Title = styled.p`
+  background-color: ${colors.black};
+  margin-left: 20px;
+  padding: 0 10px;
   color: ${colors.white};
   letter-spacing: 0.1em;
-  margin-left: 20px;
-  font-size: 1.2em;
+  font-size: 1.4em;
 
   ${tablet(css`
-    font-size: 2em;
+    font-size: 1.6em;
   `)}
 `;
 
 const MusicTitle = styled(Title)`
+  background-color: transparent;
   color: ${colors.darkslategray};
   font-size: 1em;
 
@@ -191,21 +192,46 @@ const MusicTitle = styled(Title)`
   `)}
 
   &.selected {
+    background-color: ${colors.black};
+    color: ${colors.white} !important;
+  }
+`;
+
+const Music = styled.div`
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    border-bottom: 2px solid ${colors.silver};
+  }
+
+  &:hover ${MusicTitle} {
     color: ${colors.primary};
   }
+
+  ${onlyMobile(css`
+    flex-grow: 1;
+  `)}
+
+  ${tablet(css`
+    flex-basis: 50px;
+  `)}
 `;
 
 const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
-  width: 60px;
-  border-radius: 60px;
-  background-color: ${colors.cobalt};
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: ${colors.primary};
 
   &:active {
-    background-color: ${colors.darkslateblue};
+    background-color: ${colors.primaryDark};
   }
 `;
 
