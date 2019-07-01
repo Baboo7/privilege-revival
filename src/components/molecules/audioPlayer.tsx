@@ -1,11 +1,17 @@
 import React, { PureComponent } from "react";
 import Sound from "react-sound";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import pauseSVG from "../../assets/images/pause.svg";
 import playSVG from "../../assets/images/play.svg";
-import mp3 from "../../assets/music/Couleurs.mp3";
-import { colors } from "../../theme";
+import absenceMp3 from "../../assets/music/Absence.mp3";
+import baccaraMp3 from "../../assets/music/Baccara.mp3";
+import couleursMp3 from "../../assets/music/Couleurs.mp3";
+import coinDuVoileMp3 from "../../assets/music/Le Coin Du Voile.mp3";
+import joiesIvresseMp3 from "../../assets/music/Les Joies De L'Ivresse.mp3";
+import silenceTourneMp3 from "../../assets/music/Silence On Tourne.mp3";
+import { colors, fontSizes } from "../../theme";
+import { onlyMobile, tablet } from "../../utils/deviceStyle";
 
 enum PlayerState {
   PLAYING = "PLAYING",
@@ -18,8 +24,41 @@ interface PlayerData {
   position: number;
 }
 
+interface IMusic {
+  title: string;
+  url: any;
+}
+
+const playlist: IMusic[] = [
+  {
+    title: "Baccara",
+    url: baccaraMp3,
+  },
+  {
+    title: "Le Coin Du Voile",
+    url: coinDuVoileMp3,
+  },
+  {
+    title: "Couleurs",
+    url: couleursMp3,
+  },
+  {
+    title: "Absence",
+    url: absenceMp3,
+  },
+  {
+    title: "Silence On Tourne",
+    url: silenceTourneMp3,
+  },
+  {
+    title: "Les Joies De L'Ivresse",
+    url: joiesIvresseMp3,
+  },
+];
+
 interface IState {
   duration: number;
+  musicId: number;
   playing: boolean;
   position: number;
 }
@@ -27,6 +66,7 @@ interface IState {
 export default class AudioPlayer extends PureComponent<{}, IState> {
   public state: IState = {
     duration: 0,
+    musicId: 0,
     playing: false,
     position: 0,
   };
@@ -40,12 +80,12 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
   };
 
   render() {
-    const { playing } = this.state;
+    const { musicId, playing } = this.state;
 
     return (
       <>
         <Sound
-          url={mp3}
+          url={playlist[musicId].url}
           playStatus={playing ? PlayerState.PLAYING : PlayerState.PAUSED}
           onPause={this.onPause}
           onPlaying={this.onPlaying}
@@ -55,6 +95,7 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
             <Button onClick={this.togglePlay}>
               <Icon src={playing ? pauseSVG : playSVG} />
             </Button>
+            <Title>{playlist[musicId].title}</Title>
           </Header>
         </Wrapper>
       </>
@@ -80,6 +121,20 @@ const Header = styled.div`
   box-sizing: border-box;
   padding: 0 10px;
   background-color: ${colors.silver};
+`;
+
+const Title = styled.p`
+  color: ${colors.white};
+  letter-spacing: 0.5em;
+  margin-left: 20px;
+
+  ${onlyMobile(css`
+    font-size: ${fontSizes.mobile.text};
+  `)}
+
+  ${tablet(css`
+    font-size: ${fontSizes.desktop.text};
+  `)}
 `;
 
 const Button = styled.button`

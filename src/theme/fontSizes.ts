@@ -6,7 +6,7 @@ export const fontSizes: {
 } = {
   desktop: {
     button: "1.2em",
-    text: "1em",
+    text: "1.5em",
     title: "3em",
   },
   mobile: {
