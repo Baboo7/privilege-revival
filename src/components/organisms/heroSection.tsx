@@ -1,5 +1,5 @@
 import { StaticQuery, graphql } from "gatsby";
-import React from "react";
+import React, { PureComponent } from "react";
 import styled, { css } from "styled-components";
 
 import { colors } from "../../theme";
@@ -11,35 +11,43 @@ interface IData {
   file: IFluid;
 }
 
-const HeroSection = () => (
-  <StaticQuery
-    query={graphql`
-      query {
-        file(base: { eq: "privilege.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 900) {
-              ...GatsbyImageSharpFluid_withWebp
+interface IProps {
+  onMusicChanged: (musicTitle: string) => void;
+}
+
+export default class HeroSection extends PureComponent<IProps> {
+  render() {
+    const { onMusicChanged } = this.props;
+
+    return (
+      <StaticQuery
+        query={graphql`
+          query {
+            file(base: { eq: "privilege.jpg" }) {
+              childImageSharp {
+                fluid(quality: 90, maxWidth: 900) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
             }
           }
-        }
-      }
-    `}
-    render={(data: IData) => (
-      <Wrapper>
-        <BackgroundImageStyled
-          fluid={data.file.childImageSharp.fluid}
-          overlayColor={colors.darkslateblue}
-          title="Privilège"
-        />
-        <Content>
-          <AudioPlayer />
-        </Content>
-      </Wrapper>
-    )}
-  />
-);
-
-export default HeroSection;
+        `}
+        render={(data: IData) => (
+          <Wrapper>
+            <BackgroundImageStyled
+              fluid={data.file.childImageSharp.fluid}
+              overlayColor={colors.darkslateblue}
+              title="Privilège"
+            />
+            <Content>
+              <AudioPlayer onMusicChanged={onMusicChanged} />
+            </Content>
+          </Wrapper>
+        )}
+      />
+    );
+  }
+}
 
 const Wrapper = styled.section`
   display: flex;

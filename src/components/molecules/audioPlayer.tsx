@@ -36,7 +36,7 @@ const playlist: IMusic[] = [
     url: baccaraMp3,
   },
   {
-    title: "Le Coin Du Voile",
+    title: "Le coin du voile",
     url: coinDuVoileMp3,
   },
   {
@@ -48,14 +48,18 @@ const playlist: IMusic[] = [
     url: absenceMp3,
   },
   {
-    title: "Silence On Tourne",
+    title: "Silence on tourne",
     url: silenceTourneMp3,
   },
   {
-    title: "Les Joies De L'Ivresse",
+    title: "Les joies de l'ivresse",
     url: joiesIvresseMp3,
   },
 ];
+
+interface IProps {
+  onMusicChanged: (musicTitle: string) => void;
+}
 
 interface IState {
   duration: number;
@@ -64,7 +68,7 @@ interface IState {
   position: number;
 }
 
-export default class AudioPlayer extends PureComponent<{}, IState> {
+export default class AudioPlayer extends PureComponent<IProps, IState> {
   public state: IState = {
     duration: 1,
     musicId: 0,
@@ -73,12 +77,15 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
   };
 
   public onFinishedPlaying = (): void => {
+    const { onMusicChanged } = this.props;
     const { musicId } = this.state;
 
     if (musicId < playlist.length - 1) {
-      this.setState({ musicId: musicId + 1 });
+      this.setState({ musicId: musicId + 1 }, () =>
+        onMusicChanged(playlist[this.state.musicId].title)
+      );
     } else {
-      this.setState({ playing: false });
+      this.setState({ playing: false }, () => onMusicChanged(""));
     }
   };
 
@@ -123,13 +130,28 @@ export default class AudioPlayer extends PureComponent<{}, IState> {
   }
 
   public selectMusic = (musicId: number): void => {
+    const { onMusicChanged } = this.props;
+
     if (musicId !== this.state.musicId) {
-      this.setState({ musicId, playing: true });
+      this.setState({ musicId, playing: true }, () =>
+        onMusicChanged(playlist[this.state.musicId].title)
+      );
     }
   };
 
   public togglePlay = (): void => {
-    this.setState(({ playing }: IState) => ({ playing: !playing }));
+    const { onMusicChanged } = this.props;
+
+    this.setState(
+      ({ playing }: IState) => ({ playing: !playing }),
+      () => {
+        if (this.state.playing) {
+          onMusicChanged(playlist[this.state.musicId].title);
+        } else {
+          onMusicChanged("");
+        }
+      }
+    );
   };
 }
 
